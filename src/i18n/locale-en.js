@@ -19,5 +19,8 @@ export const EN = {
     PLAYGROUND: 'Playground',
     SETTINGS: 'Settings',
     LOGOUT: 'Logout'
+  },
+  PLAYGROUND: {
+    RUN_SNIPPET: 'Run snippet'
   }
 }

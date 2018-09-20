@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Main from 'Components/main.component';
 import Login from 'Components/auth/login.component'
 import Register from 'Components/auth/register.component'
+import PlaygroundBase from 'Components/playground/base.component'
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ const router = new Router({
       meta: {
         guest: true
       }
+    },
+    {
+      path: '/playground',
+      name: 'playground',
+      component: PlaygroundBase
     }
   ]
 });

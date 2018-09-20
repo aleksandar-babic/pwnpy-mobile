@@ -66,7 +66,7 @@ export default {
         {
           icon: 'code',
           title: this.$t('MENU.PLAYGROUND'),
-          action: () => {}
+          action: () => this.$router.push('/playground')
         },
         {
           icon: 'build',
@@ -104,7 +104,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 .v-navigation-drawer {
