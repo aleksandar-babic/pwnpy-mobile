@@ -1,13 +1,42 @@
 import Vue from 'vue';
+import store from 'Store';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+import Main from 'Components/main.component';
+import Login from 'Components/auth/login.component'
+import Register from 'Components/auth/register.component'
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [{
-    path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld
-  }]
+      path: '/',
+      name: 'main',
+      component: Main
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
+      meta: {
+        guest: true
+      }
+    }
+  ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (!store.getters.isLogged && (to.path !== '/login' || to.path === '/register')) {
+    next('/login');
+  }
+  next();
+})
+
+export default router;
