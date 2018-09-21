@@ -39,9 +39,14 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!store.getters.isLogged && (to.path !== '/login' || to.path === '/register')) {
-    next('/login');
+  if (!store.getters.isLogged && (to.path !== '/login' || to.path !== '/register')) {
+    return next('/login');
   }
+
+  if (store.getters.isLogged && (to.path === '/login' || to.path === '/register')) {
+    return next('/');
+  }
+
   next();
 })
 
