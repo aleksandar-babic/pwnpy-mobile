@@ -17,7 +17,6 @@ const setLocalStorageAuthData = (data) => {
 const setAuthHeader = (unset = false) => {
   if (unset) {
     delete Axios.defaults.headers[AUTH_HEADER];
-    delete Axios.defaults.headers[AUTH_HEADER.toLowerCase()];
     return;
   }
 
