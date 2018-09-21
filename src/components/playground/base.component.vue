@@ -1,14 +1,14 @@
 <template>
   <v-slide-y-transition mode="out-in">
     <div>
-      <editor block v-model="content"
-        @init="editorInit"
-        lang="python"
-        theme="monokai"
-        width="100%"
-        :height="editorHeight"/>
+      <codemirror class="editor"
+                  ref="editor"
+                  v-model="content"
+                  :options="cmOptions" />
 
       <v-btn
+        :disabled="isEmptyContent"
+        @click="sendSnippet"
         block
         color="blue-grey"
         class="white--text execute-btn">
@@ -20,28 +20,52 @@
 </template>
 
 <script>
+import { codemirror } from 'vue-codemirror';
+import 'codemirror/mode/python/python.js';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/base16-dark.css';
+import playgroundService from 'Api/playground.service';
+
 export default {
   name: 'PlaygroundBase',
   data() {
     return {
-      content: ''
+      content: '',
+      cmOptions: {
+        autoCloseBrackets: true,
+        tabSize: 2,
+        styleActiveLine: true,
+        lineNumbers: true,
+        line: true,
+        mode: 'text/x-python',
+        theme: 'base16-dark'
+      }
     };
   },
   components: {
-    editor: require('vue2-ace-editor')
+    codemirror
   },
   computed: {
+    codemirror() {
+      return this.$refs.editor.codemirror;
+    },
     editorHeight() {
       return `${window.innerHeight - 120}px`;
+    },
+    isEmptyContent() {
+      return this.content.length === 0;
     }
   },
   methods: {
-    editorInit() {
-      require('brace/ext/language_tools');
-      require('brace/mode/python');
-      require('brace/theme/monokai');
-      require('brace/snippets/python');
+    sendSnippet() {
+      playgroundService
+        .execute(this.content)
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
     }
+  },
+  mounted() {
+    this.codemirror.setSize('100%', this.editorHeight);
   }
 };
 </script>
@@ -49,6 +73,10 @@ export default {
 <style scoped>
 .execute-btn {
   padding-left: 7px;
+}
+
+.editor {
+  text-align: left;
 }
 </style>
 
