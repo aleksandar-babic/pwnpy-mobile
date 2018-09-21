@@ -60,8 +60,23 @@ export default {
     sendSnippet() {
       playgroundService
         .execute(this.content)
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
+        .then(({ data }) => {
+          const isError = data.stderr || data.exitCode !== 0;
+          this.$swal({
+            type: isError ? 'error' : 'success',
+            title: this.$t(`PLAYGROUND.${isError ? 'ERROR' : 'SUCCESS'}`),
+            html: `<strong>${data.stdout ? data.stdout : ''} ${
+              data.stderr ? data.stderr : ''
+            }</strong>`,
+            footer: `${this.$t('PLAYGROUND.CODE')} ${data.exitCode}.`
+          });
+        })
+        .catch((err) =>
+          this.$swal({
+            type: 'error',
+            title: this.$t('GENERAL.ERROR')
+          })
+        );
     }
   },
   mounted() {

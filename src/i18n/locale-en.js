@@ -21,6 +21,9 @@ export const EN = {
     LOGOUT: 'Logout'
   },
   PLAYGROUND: {
-    RUN_SNIPPET: 'Run snippet'
+    RUN_SNIPPET: 'Run snippet',
+    ERROR: 'Oh.. Something is wrong.',
+    SUCCESS: 'Looks fine to me, good job!',
+    CODE: 'Ran with exit code'
   }
 }

@@ -8,6 +8,7 @@ import VeeValidate from 'vee-validate';
 import Axios from 'axios';
 import Vuetify from 'vuetify';
 import VueI18n from 'vue-i18n';
+import VueSweetalert2 from 'vue-sweetalert2';
 import store from './store';
 import authService from './api-services/auth.service';
 
@@ -25,6 +26,7 @@ Vue.use(VueCordova);
 Vue.use(Vuetify);
 Vue.use(VeeValidate);
 Vue.use(VueI18n);
+Vue.use(VueSweetalert2);
 
 Axios.defaults.baseURL = API_BASE_URL;
 Axios.defaults.headers.Accept = 'application/json';
