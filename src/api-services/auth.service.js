@@ -57,7 +57,7 @@ export default {
   },
   initStoreAuth() {
     const userData = JSON.parse(localStorage.getItem('user'));
-    const authToken = localStorage.getItem('token');
+    const authToken = JSON.stringify(localStorage.getItem('access_token'));
 
     if (userData) {
       setAuthHeader();
