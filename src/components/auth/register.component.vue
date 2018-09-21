@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import authService from '../../api-services/auth.service';
+import authService from 'Api/auth.service';
 
 export default {
   name: 'Register',
