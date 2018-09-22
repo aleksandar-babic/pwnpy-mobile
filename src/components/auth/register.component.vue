@@ -97,7 +97,7 @@ export default {
             }
 
             this.$router.push({
-              name: 'main'
+              name: 'profile'
             });
           })
           .catch((err) => {

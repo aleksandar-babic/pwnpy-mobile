@@ -15,6 +15,7 @@ const getters = {
 
 const mutations = {
   deauth(state) {
+    console.log('deauth!');
     localStorage.clear();
     state.activeUser = null;
   },
