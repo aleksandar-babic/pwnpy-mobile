@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="activeUser && activeUser.theme && activeUser.theme === 'dark'">
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -10,17 +10,38 @@
       app
     >
       <v-list>
+        <template v-for="(item, i) in items">
+          <v-list-tile
+            large
+            :to="item.action"
+            :key="i"
+            active-class="active"
+          >
+            <v-list-tile-action>
+              <v-icon class="material-icons.md-24" v-html="item.icon"/>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="item.title"/>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-divider
+            class="my-2"
+            :key="i+10"
+          ></v-divider>
+        </template>
         <v-list-tile
-          v-for="(item, i) in items"
-          @click="item.action()"
-          :key="i"
-          value="true"
+            error
+            v-if="activeUser"
+            @click="logout()"
+            active-class="active"
+            key="15"
+            value="true"
         >
           <v-list-tile-action>
-            <v-icon v-html="item.icon"/>
+            <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"/>
+            <v-list-tile-title v-text="$t('MENU.LOGOUT')"/>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -43,6 +64,7 @@
 
 <script>
 import store from 'Store';
+import { mapGetters } from 'vuex';
 import authService from './api-services/auth.service';
 
 export default {
@@ -52,34 +74,27 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      active: false,
       items: [
         {
-          icon: 'perm_identity',
+          icon: 'account_box',
           title: this.$t('MENU.PROFILE'),
-          action: () => {}
+          action: '/profile'
         },
         {
-          icon: 'lightbulb_outline',
+          icon: 'library_books',
           title: this.$t('MENU.LEARN'),
-          action: () => {}
+          action: '/learn'
         },
         {
           icon: 'code',
           title: this.$t('MENU.PLAYGROUND'),
-          action: () => this.$router.push('/playground')
+          action: '/playground'
         },
         {
           icon: 'build',
           title: this.$t('MENU.SETTINGS'),
-          action: () => {}
-        },
-        {
-          icon: 'exit_to_app',
-          title: this.$t('MENU.LOGOUT'),
-          action: () => {
-            authService.logout();
-            this.$router.push('/login');
-          }
+          action: '/settings'
         }
       ],
       miniVariant: false,
@@ -88,8 +103,15 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['activeUser']),
     isLoggedIn() {
       return store.getters.isLogged;
+    }
+  },
+  methods: {
+    logout() {
+      authService.logout();
+      return this.$router.push('/login');
     }
   }
 };
