@@ -8,6 +8,7 @@
         <v-form
           :style="{ width: '100%' }">
           <v-text-field
+            @keyup.enter.native="submit"
             v-validate="'required|email'"
             :error-messages="errors.collect('email')"
             v-model.trim="form.email"
@@ -17,6 +18,7 @@
             type="text"
           />
           <v-text-field
+            @keyup.enter.native="submit"
             v-validate="'required|min:6|max:30'"
             :error-messages="errors.collect('password')"
             v-model="form.password"
