@@ -14,8 +14,6 @@ export default {
       type: 'text/plain'
     });
 
-    console.log('blob', blob);
-
     const data = new FormData();
     data.set('source', blob)
 
