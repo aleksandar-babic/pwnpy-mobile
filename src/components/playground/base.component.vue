@@ -13,7 +13,7 @@
         color="blue-grey"
         class="white--text execute-btn">
         {{ $t('PLAYGROUND.RUN_SNIPPET') }}
-        <v-icon dark>play_circle_outline</v-icon>
+        <v-icon right dark>cloud_upload</v-icon>
       </v-btn>
     </div>
   </v-slide-y-transition>
