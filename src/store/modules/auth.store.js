@@ -1,7 +1,7 @@
 import {
   isEmpty
 } from 'lodash';
-import authService from '../../api-services/auth.service';
+import authService from 'Api/auth.service';
 import store from 'Store';
 
 const state = {

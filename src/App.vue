@@ -66,7 +66,7 @@
 import { capitalize } from 'lodash';
 import store from 'Store';
 import { mapGetters } from 'vuex';
-import authService from './api-services/auth.service';
+import authService from 'Api/auth.service';
 
 export default {
   name: 'App',

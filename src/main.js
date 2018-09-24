@@ -10,7 +10,7 @@ import Vuetify from 'vuetify';
 import VueI18n from 'vue-i18n';
 import VueSweetalert2 from 'vue-sweetalert2';
 import store from './store';
-import authService from './api-services/auth.service';
+import authService from 'Api/auth.service';
 import Loader from 'Components/shared/loader.shared.component'
 
 import {
