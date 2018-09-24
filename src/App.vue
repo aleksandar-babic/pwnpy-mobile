@@ -128,6 +128,11 @@ export default {
   color: #2c3e50;
 }
 
+a,
+u {
+  text-decoration: none;
+}
+
 .v-navigation-drawer {
   width: 205px !important;
 }

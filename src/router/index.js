@@ -5,6 +5,8 @@ import Profile from 'Components/profile.component';
 import Login from 'Components/auth/login.component'
 import Register from 'Components/auth/register.component'
 import PlaygroundBase from 'Components/playground/base.component'
+import LearnBase from 'Components/learn/base.component'
+import QuizComponent from 'Components/learn/quiz/quiz.component'
 
 Vue.use(Router);
 
@@ -38,6 +40,17 @@ const router = new Router({
       path: '/playground',
       name: 'playground',
       component: PlaygroundBase
+    },
+    {
+      path: '/learn',
+      name: 'learn',
+      component: LearnBase
+    },
+    {
+      path: '/quiz',
+      name: 'quiz',
+      component: QuizComponent,
+      props: true
     }
   ]
 });
