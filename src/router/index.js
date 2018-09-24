@@ -7,6 +7,7 @@ import Register from 'Components/auth/register.component'
 import PlaygroundBase from 'Components/playground/base.component'
 import LearnBase from 'Components/learn/base.component'
 import QuizComponent from 'Components/learn/quiz/quiz.component'
+import SettingsComponent from 'Components/settings/base.component'
 
 Vue.use(Router);
 
@@ -51,6 +52,11 @@ const router = new Router({
       name: 'quiz',
       component: QuizComponent,
       props: true
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsComponent
     }
   ]
 });

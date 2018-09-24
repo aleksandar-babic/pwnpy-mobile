@@ -3,14 +3,20 @@ import store from 'Store';
 
 const ENDPOINTS = {
   LOGIN: '/user/login',
-  REGISTER: '/user/signup'
+  REGISTER: '/user/signup',
+  EDIT: '/user'
 };
 
 const AUTH_HEADER = 'Authorization';
 
 const setLocalStorageAuthData = (data) => {
-  localStorage.setItem('access_token', data.token || null);
-  localStorage.setItem('user_id', data.user ? data.user.id : null);
+  if (data.token) {
+    localStorage.setItem('access_token', data.token || null);
+  }
+
+  if (data.user && data.user.id) {
+    localStorage.setItem('user_id', data.user ? data.user.id : null);
+  }
   localStorage.setItem('user', JSON.stringify(data.user));
 };
 
@@ -33,6 +39,20 @@ export default {
       setAuthHeader();
       store.commit('auth', response.data.user);
       store.commit('setAuthToken', response.data.token);
+
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
+  async edit(data) {
+    try {
+      const response = await Axios.put(ENDPOINTS.EDIT, data);
+
+      setLocalStorageAuthData({
+        user: response.data
+      });
+      store.commit('auth', response.data);
 
       return Promise.resolve(response);
     } catch (error) {
