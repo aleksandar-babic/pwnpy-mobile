@@ -1,20 +1,31 @@
 <template>
   <v-slide-y-transition mode="out-in">
     <div>
-      <codemirror class="editor"
-                  ref="editor"
-                  v-model="content"
-                  :options="cmOptions" />
+      <v-layout row justify-center>
+        <v-dialog v-model="isLoading" persistent fullscreen content-class="loading-dialog">
+          <v-container fill-height>
+            <v-layout row justify-center align-center>
+              <v-progress-circular indeterminate :size="70" :width="7" color="primary"></v-progress-circular>
+            </v-layout>
+          </v-container>
+        </v-dialog>
+      </v-layout>
+      <div class="content">
+        <codemirror class="editor"
+                ref="editor"
+                v-model="content"
+                :options="cmOptions" />
 
-      <v-btn
-        :disabled="isEmptyContent"
-        @click="sendSnippet"
-        block
-        color="blue-grey"
-        class="white--text execute-btn">
-        {{ $t('PLAYGROUND.RUN_SNIPPET') }}
-        <v-icon right dark>cloud_upload</v-icon>
-      </v-btn>
+        <v-btn
+          :disabled="isEmptyContent"
+          @click="sendSnippet"
+          block
+          color="blue-grey"
+          class="white--text execute-btn">
+          {{ $t('PLAYGROUND.RUN_SNIPPET') }}
+          <v-icon right dark>cloud_upload</v-icon>
+        </v-btn>
+      </div>
     </div>
   </v-slide-y-transition>
 </template>
@@ -31,6 +42,7 @@ export default {
   data() {
     return {
       content: '',
+      isLoading: false,
       cmOptions: {
         autoCloseBrackets: true,
         tabSize: 2,
@@ -47,7 +59,9 @@ export default {
   },
   computed: {
     codemirror() {
-      return this.$refs.editor.codemirror;
+      if (this.$refs.editor) {
+        return this.$refs.editor.codemirror;
+      }
     },
     editorHeight() {
       return `${window.innerHeight - 120}px`;
@@ -58,9 +72,11 @@ export default {
   },
   methods: {
     sendSnippet() {
+      this.isLoading = true;
       playgroundService
         .execute(this.content)
         .then(({ data }) => {
+          this.isLoading = false;
           const isError = data.stderr || data.exitCode !== 0;
           this.$swal({
             type: isError ? 'error' : 'success',
@@ -71,16 +87,19 @@ export default {
             footer: `${this.$t('PLAYGROUND.CODE')} ${data.exitCode}.`
           });
         })
-        .catch((err) =>
+        .catch((err) => {
+          this.isLoading = false;
           this.$swal({
             type: 'error',
             title: this.$t('GENERAL.ERROR')
-          })
-        );
+          });
+        });
     }
   },
   mounted() {
-    this.codemirror.setSize('100%', this.editorHeight);
+    if (this.codemirror) {
+      this.codemirror.setSize('100%', this.editorHeight);
+    }
   }
 };
 </script>
