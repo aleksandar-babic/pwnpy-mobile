@@ -11,6 +11,7 @@ import VueI18n from 'vue-i18n';
 import VueSweetalert2 from 'vue-sweetalert2';
 import store from './store';
 import authService from './api-services/auth.service';
+import Loader from 'Components/shared/loader.shared.component'
 
 import {
   LOCALES
@@ -30,6 +31,9 @@ Vue.use(VueSweetalert2);
 
 Axios.defaults.baseURL = API_BASE_URL;
 Axios.defaults.headers.Accept = 'application/json';
+
+// Shared components
+Vue.component('loader', Loader);
 
 // add cordova.js only if serving the app through file://
 if (window.location.protocol === 'file:' || window.location.port === '3000') {

@@ -5,6 +5,7 @@
       <v-layout
         column
         align-center>
+        <loader :isLoading="isLoading" />
         <img
           src="@/assets/logo.png"
           alt="PwnPy">
@@ -72,6 +73,7 @@ export default {
         password: ''
       },
       isValid: false,
+      isLoading: false,
       failed: false,
       fatalErr: false
     };
@@ -81,9 +83,11 @@ export default {
       this.isValid = await this.$validator.validateAll();
 
       if (this.isValid) {
+        this.isLoading = true;
         return authService
           .login(this.form)
           .then((data) => {
+            this.isLoading = false;
             if (!data) {
               return (this.failed = true);
             }
@@ -93,6 +97,7 @@ export default {
             });
           })
           .catch((err) => {
+            this.isLoading = false;
             if (!err) {
               this.fatalErr = true;
             }

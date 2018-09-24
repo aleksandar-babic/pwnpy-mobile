@@ -3,6 +3,7 @@
       grid-list-md
       text-xs-center
       :style="{ height: '100%' }">
+      <loader :isLoading="isLoading" />
       <div class="layout-container" :style="{ height: '100%' }">
         <h1>{{ title }} questions</h1>
         <template v-if="questions[current]">
@@ -46,6 +47,7 @@ export default {
       questions: [],
       answers: [],
       isDone: false,
+      isLoading: false,
       currentAnswer: {},
       submitText: 'Next'
     };
@@ -61,6 +63,7 @@ export default {
 
       if (this.isDone) {
         this.isDone = false;
+        this.isLoading = true;
         return questionService
           .checkAnswers(this.hash, this.answers)
           .then(({ data }) => {
@@ -73,7 +76,7 @@ export default {
             const text = failed
               ? this.$t('QUIZ.FAILED_TEXT')
               : this.$t(`QUIZ.${pwned ? 'PWNED' : 'SUCCEDED'}_TEXT `);
-
+            this.isLoading = false;
             this.$swal({
               type: failed ? 'error' : 'success',
               title,

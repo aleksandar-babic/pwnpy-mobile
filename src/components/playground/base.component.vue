@@ -1,15 +1,7 @@
 <template>
   <v-slide-y-transition mode="out-in">
     <div>
-      <v-layout row justify-center>
-        <v-dialog v-model="isLoading" persistent fullscreen content-class="loading-dialog">
-          <v-container fill-height>
-            <v-layout row justify-center align-center>
-              <v-progress-circular indeterminate :size="70" :width="7" color="primary"></v-progress-circular>
-            </v-layout>
-          </v-container>
-        </v-dialog>
-      </v-layout>
+      <loader :isLoading="isLoading"/>
       <div class="content">
         <codemirror class="editor"
                 ref="editor"
