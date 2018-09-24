@@ -1,4 +1,6 @@
-import * as _ from 'lodash';
+import {
+  isEmpty
+} from 'lodash';
 import authService from '../../api-services/auth.service';
 import store from 'Store';
 
