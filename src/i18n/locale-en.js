@@ -1,6 +1,7 @@
 export const EN = {
   GENERAL: {
     TITLE: 'PwnPy!',
+    WELCOME: 'Welcome to PwnPy!',
     ERROR: 'Oops.. Something terrible happened!',
     FOOTER: '2018 Aleksandar Babic - PwnPy '
   },

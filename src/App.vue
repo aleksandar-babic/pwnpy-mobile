@@ -53,7 +53,7 @@
       <v-toolbar-side-icon
         v-if="isLoggedIn"
         @click.stop="drawer = !drawer"/>
-      <v-toolbar-title v-text="$t('GENERAL.TITLE')"/>
+      <v-toolbar-title v-text="currentTitle"/>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import { capitalize } from 'lodash';
 import store from 'Store';
 import { mapGetters } from 'vuex';
 import authService from './api-services/auth.service';
@@ -74,6 +75,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      currentTitle: this.$t('GENERAL.TITLE'),
       active: false,
       items: [
         {
@@ -112,6 +114,15 @@ export default {
     logout() {
       authService.logout();
       return this.$router.push('/login');
+    }
+  },
+  watch: {
+    $route(to, from) {
+      if (to.name !== 'login' && to.name !== 'register') {
+        return (this.currentTitle = capitalize(to.name));
+      }
+
+      this.currentTitle = this.$t(`GENERAL.${to.name === 'register' ? 'WELCOME' : 'TITLE'}`);
     }
   }
 };
