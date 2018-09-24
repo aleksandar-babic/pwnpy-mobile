@@ -5,6 +5,9 @@
       <v-layout
         column
         align-center>
+        <img
+          src="@/assets/logo.png"
+          alt="PwnPy">
         <v-form
           :style="{ width: '100%' }">
           <v-text-field
