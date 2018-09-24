@@ -1,5 +1,5 @@
 <template>
-  <v-app :dark="activeUser && activeUser.darkTheme" :style="dynamicStyles">
+  <v-app :dark="isDarkMode" :style="dynamicStyles">
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -109,9 +109,16 @@ export default {
     isLoggedIn() {
       return store.getters.isLogged;
     },
+    isDarkMode() {
+      if (this.activeUser) {
+        return this.activeUser.darkTheme;
+      }
+
+      return true;
+    },
     dynamicStyles() {
       return {
-        color: this.activeUser && this.activeUser.darkTheme ? 'white' : '#2c3e50'
+        color: this.isDarkMode ? 'white' : '#2c3e50'
       };
     }
   },
