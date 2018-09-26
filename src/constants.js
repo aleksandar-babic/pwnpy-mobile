@@ -19,6 +19,6 @@ switch (process.env.API_ENV) {
     }
 }
 
-
-
 export const API_BASE_URL = apiBaseUrl;
+
+export const LEVEL_BOUNDARIES = [500, 2000, 5000];

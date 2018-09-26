@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import store from 'Store';
 import questionService from 'Api/question.service';
 
 export default {
@@ -67,8 +68,12 @@ export default {
         return questionService
           .checkAnswers(this.hash, this.answers)
           .then(({ data }) => {
-            const numOfCorrectAnswers = data.length;
+            const numOfCorrectAnswers = data.correctAnswers.length;
             const failed = numOfCorrectAnswers === 0;
+            if (!failed) {
+              store.commit('setActiveUser', data.user);
+              localStorage.setItem('user', JSON.stringify(data.user));
+            }
             const pwned = numOfCorrectAnswers === this.questions.length;
             const title = failed
               ? this.$t('QUIZ.FAILED')

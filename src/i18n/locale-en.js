@@ -47,5 +47,11 @@ export const EN = {
     VERIFY_PASSWORD: 'Verify New Password',
     SUCCESS_PW: 'Password has been changed.',
     ERROR_PW: 'Error while changing password'
+  },
+  PROFILE: {
+    LEVEL: 'You are currently at level {level}.',
+    EXP: 'Experience points earned at this level {points}.',
+    PERCENT: 'You are currently at {percent}% of this level, earn {neededPts} points to level-up!',
+    LIFETIME: 'Total experience earned from start: {exp}'
   }
 }
