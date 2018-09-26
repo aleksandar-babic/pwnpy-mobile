@@ -82,29 +82,30 @@ export default {
     async submit() {
       this.isValid = await this.$validator.validateAll();
 
-      if (this.isValid) {
-        this.isLoading = true;
-        return authService
-          .login(this.form)
-          .then((data) => {
-            this.isLoading = false;
-            if (!data) {
-              return (this.failed = true);
-            }
-
-            this.$router.push({
-              name: 'profile'
-            });
-          })
-          .catch((err) => {
-            this.isLoading = false;
-            if (!err) {
-              this.fatalErr = true;
-            }
-
-            this.failed = true;
-          });
+      if (!this.isValid) {
+        return;
       }
+      this.isLoading = true;
+      return authService
+        .login(this.form)
+        .then((data) => {
+          this.isLoading = false;
+          if (!data) {
+            return (this.failed = true);
+          }
+
+          this.$router.push({
+            name: 'profile'
+          });
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          if (!err) {
+            this.fatalErr = true;
+          }
+
+          this.failed = true;
+        });
     }
   }
 };

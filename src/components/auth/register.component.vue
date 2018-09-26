@@ -96,41 +96,42 @@ export default {
     async submit() {
       this.isValid = await this.$validator.validateAll();
 
-      if (this.isValid) {
-        this.isLoading = true;
-        authService
-          .register(this.form)
-          .then((data) => {
-            this.isLoading = false;
-            if (!data) {
-              return (this.failed = true);
-            }
-
-            this.$router.push({
-              name: 'profile'
-            });
-          })
-          .catch((err) => {
-            this.isLoading = false;
-            if (!err) {
-              this.fatalErr = true;
-              this.failed = true;
-              return;
-            }
-
-            this.failed = true;
-
-            switch (err.response.status) {
-              case 409: {
-                this.errMsg = this.$t('AUTH.EXISTS');
-                break;
-              }
-              default: {
-                this.errMsg = this.$t('AUTH.REG_FAILURE');
-              }
-            }
-          });
+      if (!this.isValid) {
+        return;
       }
+      this.isLoading = true;
+      authService
+        .register(this.form)
+        .then((data) => {
+          this.isLoading = false;
+          if (!data) {
+            return (this.failed = true);
+          }
+
+          this.$router.push({
+            name: 'profile'
+          });
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          if (!err) {
+            this.fatalErr = true;
+            this.failed = true;
+            return;
+          }
+
+          this.failed = true;
+
+          switch (err.response.status) {
+            case 409: {
+              this.errMsg = this.$t('AUTH.EXISTS');
+              break;
+            }
+            default: {
+              this.errMsg = this.$t('AUTH.REG_FAILURE');
+            }
+          }
+        });
     }
   }
 };
