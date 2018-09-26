@@ -38,5 +38,14 @@ export const EN = {
     PWNED_TEXT: 'You destroyed our quiz, well played.',
     SUCCEDED_TEXT: 'You did well, we are sure that you will defeat our quiz soon.',
     ZERO_ANSWERS: 'You got 0 correct answers, but keep trying.'
+  },
+  SETTINGS: {
+    UI: 'UI Settings',
+    SECURITY: 'Security Settings',
+    CHANGE: 'Change',
+    PASSWORD: 'New Password',
+    VERIFY_PASSWORD: 'Verify New Password',
+    SUCCESS_PW: 'Password has been changed.',
+    ERROR_PW: 'Error while changing password'
   }
 }

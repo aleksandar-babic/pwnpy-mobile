@@ -4,7 +4,8 @@ import store from 'Store';
 const ENDPOINTS = {
   LOGIN: '/user/login',
   REGISTER: '/user/signup',
-  EDIT: '/user'
+  EDIT: '/user',
+  CHANGE_PW: '/user/change-pw'
 };
 
 const AUTH_HEADER = 'Authorization';
@@ -93,5 +94,8 @@ export default {
     });
     setAuthHeader(true);
     store.commit('deauth');
+  },
+  async changePassword(data) {
+    return Axios.put(ENDPOINTS.CHANGE_PW, data);
   }
 }
