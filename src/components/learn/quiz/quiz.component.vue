@@ -7,7 +7,7 @@
       <div class="layout-container" :style="{ height: '100%' }">
         <h1>{{ title }} questions</h1>
         <template v-if="questions[current]">
-          <h3 class="question-template">{{ questions[current].body }}</h3>
+          <h3 class="question-template" v-html="questions[current].body"></h3>
 
           <v-radio-group v-model="currentAnswer">
             <v-radio
