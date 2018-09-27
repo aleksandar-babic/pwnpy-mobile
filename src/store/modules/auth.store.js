@@ -26,7 +26,7 @@ const getters = {
       case (currentExperience < LEVEL_BOUNDARIES[2]):
         return 3;
       default:
-        return 6;
+        return 4;
     }
   },
   userLevelBoundary: (state, getters) => {
@@ -39,7 +39,7 @@ const getters = {
       case 3:
         return LEVEL_BOUNDARIES[2];
       default:
-        return 1;
+        return LEVEL_BOUNDARIES[2];
     }
   },
   previousLevelBoundary: (state, getters) => LEVEL_BOUNDARIES[getters.userLevel - 2] || 0

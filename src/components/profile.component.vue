@@ -7,9 +7,11 @@
       <h3>{{ $t('PROFILE.LEVEL', {level: userLevel}) }}</h3>
       <h4>{{ $t('PROFILE.EXP', {points: activeUser.experience - previousLevelBoundary}) }}</h4>
       <v-progress-linear :value="currentPercent" height="20" color="info"></v-progress-linear>
-      <strong>{{ $t('PROFILE.PERCENT', {percent: Math.floor(currentPercent), neededPts: userLevelBoundary - activeUser.experience}) }}</strong>
-      <br/>
-      <br/>
+      <div v-if="userLevel < 4">
+        <strong>{{ $t('PROFILE.PERCENT', {percent: Math.floor(currentPercent), neededPts: userLevelBoundary - activeUser.experience}) }}</strong>
+        <br/>
+        <br/>
+      </div>
       <strong>{{ $t('PROFILE.LIFETIME', {exp: activeUser.experience}) }}</strong>
     </div>
   </v-container>
