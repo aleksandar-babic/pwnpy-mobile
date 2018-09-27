@@ -13,6 +13,19 @@
         <br/>
       </div>
       <strong>{{ $t('PROFILE.LIFETIME', {exp: activeUser.experience}) }}</strong>
+      <v-divider class="my-3"/>
+      <h2>Choose an action</h2>
+      <router-link v-for="(action, i) in actions"
+                   :key="i"
+                   :to="{name: action.route}">
+        <v-btn  outline
+                large
+                fab
+                class="my-3 mx-3"
+                color="blue lighten-1">
+          <v-icon>{{ action.icon }}</v-icon>
+        </v-btn>
+      </router-link>
     </div>
   </v-container>
 </template>
@@ -22,6 +35,24 @@ import { LEVEL_BOUNDARIES } from '@/constants';
 
 export default {
   name: 'Profile',
+  data() {
+    return {
+      actions: [
+        {
+          icon: 'library_books',
+          route: 'learn'
+        },
+        {
+          icon: 'code',
+          route: 'playground'
+        },
+        {
+          icon: 'build',
+          route: 'settings'
+        }
+      ]
+    };
+  },
   computed: {
     ...mapGetters(['activeUser', 'userLevel', 'userLevelBoundary', 'previousLevelBoundary']),
     currentPercent() {
