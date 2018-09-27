@@ -9,11 +9,17 @@
                 :options="cmOptions" />
 
         <v-btn
+          @click="showHelp"
+          color="blue-grey"
+          class="white--text execute-btn mt-2">
+          {{ $t('PLAYGROUND.HELP') }}
+          <v-icon right dark>help</v-icon>
+        </v-btn>
+        <v-btn
           :disabled="isEmptyContent"
           @click="sendSnippet"
-          block
           color="blue-grey"
-          class="white--text execute-btn">
+          class="white--text execute-btn mt-2">
           {{ $t('PLAYGROUND.RUN_SNIPPET') }}
           <v-icon right dark>cloud_upload</v-icon>
         </v-btn>
@@ -86,6 +92,14 @@ export default {
             title: this.$t('GENERAL.ERROR')
           });
         });
+    },
+    showHelp() {
+      this.$swal({
+        type: 'info',
+        title: this.$t('PLAYGROUND.HELP_TITLE'),
+        confirmButtonText: this.$t('PLAYGROUND.HELP_CONFIRM'),
+        html: this.$t('PLAYGROUND.HELP_TEXT')
+      });
     }
   },
   mounted() {
@@ -97,10 +111,6 @@ export default {
 </script>
 
 <style scoped>
-.execute-btn {
-  padding-left: 7px;
-}
-
 .editor {
   text-align: left;
 }
