@@ -49,9 +49,13 @@ export default {
       answers: [],
       isDone: false,
       isLoading: false,
-      currentAnswer: {},
-      submitText: 'Next'
+      currentAnswer: {}
     };
+  },
+  computed: {
+    submitText() {
+      return this.current === this.questions.length - 1 ? 'Finish' : 'Next';
+    }
   },
   methods: {
     tryNext() {
@@ -59,7 +63,11 @@ export default {
       this.currentAnswer = {};
 
       if (this.current !== this.questions.length - 1) {
-        ++this.current;
+        return ++this.current;
+      }
+
+      if (this.current === this.questions.length - 1) {
+        this.isDone = true;
       }
 
       if (this.isDone) {
@@ -96,35 +104,34 @@ export default {
                   } correct.`
             }).then((result) => this.$router.push(result.dismiss ? '/learn' : '/playground'));
           })
-          .catch((err) =>
+          .catch((err) => {
+            this.isLoading = false;
             this.$swal({
               type: 'error',
               title: this.$t('GENERAL.ERROR'),
               html: err.message
-            })
-          );
-      }
-
-      if (this.current === this.questions.length - 1) {
-        this.submitText = 'Finish';
-        this.isDone = true;
+            });
+          });
       }
     }
   },
   created() {
+    this.isLoading = true;
     questionService
       .getQuestions(this.difficulty)
       .then(({ data }) => {
+        this.isLoading = false;
         this.questions = data.questions;
         this.hash = data.hash.id;
       })
-      .catch((err) =>
+      .catch((err) => {
+        this.isLoading = false;
         this.$swal({
           type: 'error',
           title: this.$t('GENERAL.ERROR'),
           html: err.message
-        })
-      );
+        });
+      });
   }
 };
 </script>
