@@ -24,14 +24,15 @@ export const EN = {
   PLAYGROUND: {
     RUN_SNIPPET: 'Run snippet',
     ERROR: 'Oh.. Something is wrong.',
-    SUCCESS: 'You earned 50 experience points!',
+    SUCCESS: 'Good job, you earned 50 experience points!',
     CODE: 'Ran with exit code',
     HELP: 'Show Help',
     HELP_TITLE: 'Welcome to playground mode!',
     HELP_TEXT: `This is place where you can fool around with Python.<br/>
            <br/>Try to start with simple expression like <code>print("Hi PwnPy")</code><br/>
            <br/>Once you click 'Run Snippet' button we will execute given code and return STDOUT and STDERR(if any) outputs, <br/>
-           additionaly, you will see exit code of your snippet.`,
+           additionaly, you will see exit code of your snippet. <br/>
+           <br/>If snippet exits with exit code 0, you will earn 50 experience points.`,
     HELP_CONFIRM: 'Alright, let me try'
   },
   QUIZ: {
