@@ -37,7 +37,9 @@ export const EN = {
     FAILED_TEXT: 'Go online, read docs, stalk Stack Overflow, have fun with our playground mode and come back to quiz again when you are ready.',
     PWNED_TEXT: 'You destroyed our quiz, well played.',
     SUCCEDED_TEXT: 'You did well, we are sure that you will defeat our quiz soon.',
-    ZERO_ANSWERS: 'You got 0 correct answers, but keep trying.'
+    ZERO_ANSWERS: 'You got 0 correct answers, but keep trying.',
+    ERR_FETCH: 'Error while fetching user progress information',
+    ERR_FETCH_TEXT: 'You may still continue using quiz, but minor incidents are to be expected.'
   },
   SETTINGS: {
     UI: 'UI Settings',

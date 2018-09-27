@@ -11,8 +11,13 @@
         <router-link
           v-for="(level, index) in levels"
           :key=index
+          :event="level.completedQuestions === level.totalQuestions && level.totalQuestions !== 0 ? '' : 'click'"
           :to="{name: 'quiz', params: { difficulty: level.number, title: level.title }}">
-          <v-btn :color="level.color" large top> {{ level.title }}</v-btn>
+          <v-btn :color="level.color" large top
+                 :disabled="level.completedQuestions === level.totalQuestions && level.totalQuestions !== 0">
+            {{ level.title }}
+          </v-btn>
+          <p class="mt-3" :style="{color: activeUser.darkTheme ? 'white': '#2c3e50'}">{{ level.completedQuestions }}/{{ level.totalQuestions }} questions completed</p>
         </router-link>
       </v-layout>
     </v-slide-y-transition>
@@ -20,6 +25,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import authService from 'Api/auth.service';
+
 export default {
   name: 'LearnBase',
   data() {
@@ -28,20 +36,49 @@ export default {
         {
           title: 'Beginner',
           number: 1,
-          color: 'warning'
+          color: 'warning',
+          totalQuestions: 0,
+          completedQuestions: 0
         },
         {
           title: 'Intermediate',
           number: 2,
-          color: 'info'
+          color: 'info',
+          totalQuestions: 0,
+          completedQuestions: 0
         },
         {
           title: 'Pro',
           number: 3,
-          color: 'success'
+          color: 'success',
+          totalQuestions: 0,
+          completedQuestions: 0
         }
       ]
     };
+  },
+  computed: {
+    ...mapGetters(['activeUser'])
+  },
+  created() {
+    authService
+      .me()
+      .then(({ data }) => {
+        for (let prop in data.totalQuestions) {
+          this.levels[prop - 1].totalQuestions = data.totalQuestions[prop];
+        }
+
+        data.completedQuestions.forEach((q) => {
+          this.levels[q.difficulty - 1].completedQuestions += 1;
+        });
+      })
+      .catch((err) =>
+        this.$swal({
+          type: 'error',
+          title: this.$t('QUIZ.ERR_FETCH'),
+          text: this.$t('QUIZ.ERR_FETCH_TEXT')
+        })
+      );
   }
 };
 </script>

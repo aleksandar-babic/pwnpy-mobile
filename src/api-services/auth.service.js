@@ -5,7 +5,8 @@ const ENDPOINTS = {
   LOGIN: '/user/login',
   REGISTER: '/user/signup',
   EDIT: '/user',
-  CHANGE_PW: '/user/change-pw'
+  CHANGE_PW: '/user/change-pw',
+  ME: '/user'
 };
 
 const AUTH_HEADER = 'Authorization';
@@ -97,5 +98,8 @@ export default {
   },
   async changePassword(data) {
     return Axios.put(ENDPOINTS.CHANGE_PW, data);
+  },
+  async me() {
+    return Axios.get(ENDPOINTS.ME);
   }
 }
