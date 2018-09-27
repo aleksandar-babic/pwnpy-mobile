@@ -24,7 +24,7 @@ export const EN = {
   PLAYGROUND: {
     RUN_SNIPPET: 'Run snippet',
     ERROR: 'Oh.. Something is wrong.',
-    SUCCESS: 'Looks fine to me, good job!',
+    SUCCESS: 'You earned 50 experience points!',
     CODE: 'Ran with exit code',
     HELP: 'Show Help',
     HELP_TITLE: 'Welcome to playground mode!',
@@ -61,6 +61,6 @@ export const EN = {
     LEVEL: 'You are currently at level {level}.',
     EXP: 'Experience points earned at this level {points}.',
     PERCENT: 'You are currently at {percent}% of this level, earn {neededPts} points to level-up!',
-    LIFETIME: 'Total experience earned from start: {exp}'
+    LIFETIME: 'Total experience points earned from start: {exp}'
   }
 }

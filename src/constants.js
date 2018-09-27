@@ -14,7 +14,7 @@ switch (process.env.API_ENV) {
 
   default:
     {
-      apiBaseUrl = 'http://locahost:1337';
+      apiBaseUrl = 'http://localhost:1337';
       break;
     }
 }
