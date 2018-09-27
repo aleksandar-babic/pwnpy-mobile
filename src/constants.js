@@ -2,7 +2,7 @@ let apiBaseUrl = '';
 switch (process.env.API_ENV) {
   case 'production':
     {
-      apiBaseUrl = '';
+      apiBaseUrl = 'http://54.93.52.166:1337';
       break;
     }
 
@@ -14,7 +14,7 @@ switch (process.env.API_ENV) {
 
   default:
     {
-      apiBaseUrl = 'http://localhost:1337';
+      apiBaseUrl = 'http://locahost:1337';
       break;
     }
 }
