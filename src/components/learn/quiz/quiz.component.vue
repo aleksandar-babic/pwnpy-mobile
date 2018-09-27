@@ -95,7 +95,7 @@ export default {
               title,
               html: `<strong>${text}</strong>`,
               showCancelButton: true,
-              cancelButtonText: 'Try again',
+              cancelButtonText: 'Take me back',
               confirmButtonText: 'Take me to playground',
               footer: failed
                 ? this.$t('QUIZ.ZERO_ANSWERS')
