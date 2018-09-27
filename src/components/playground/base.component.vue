@@ -34,6 +34,7 @@ import 'codemirror/mode/python/python.js';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/base16-dark.css';
 import playgroundService from 'Api/playground.service';
+import store from 'Store';
 
 export default {
   name: 'PlaygroundBase',
@@ -76,6 +77,9 @@ export default {
         .then(({ data }) => {
           this.isLoading = false;
           const isError = data.stderr || data.exitCode !== 0;
+          if (!isError) {
+            store.commit('setActiveUser', data.user);
+          }
           this.$swal({
             type: isError ? 'error' : 'success',
             title: this.$t(`PLAYGROUND.${isError ? 'ERROR' : 'SUCCESS'}`),
